@@ -1,14 +1,21 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Posts</h1>
 
-<div id="posts">
-  <% @posts.each do |post| %>
-    <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
-  <% end %>
+<div class="container p-5">
+  <h1 class="text-center">Posts</h1>
+
+  <div id="posts">
+    <% if @posts.count > 0 %>
+      <% @posts.each do |post| %>
+        <%= render post %>
+        <p>
+          <%= link_to "Show this post", post, class: "btn btn-outline-primary btn-sm" %>
+        </p>
+      <% end %>
+    <% else %>
+      <p>No posts yet!</p>
+    <% end %>
+  </div>
+
+  <%= link_to "New post", new_post_path, class: "btn btn-outline-primary btn-sm" %>
 </div>
-
-<%= link_to "New post", new_post_path %>

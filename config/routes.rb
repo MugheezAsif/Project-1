@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :accounts
+  
   root 'welcome#main'
+  devise_for :accounts
+  
   
   resources :comments
   resources :posts
