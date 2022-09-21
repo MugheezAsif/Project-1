@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   
   root 'welcome#main'
-  devise_for :accounts
-  
+  #devise_for :accounts
+  devise_for :account
   
   resources :comments
   resources :posts
