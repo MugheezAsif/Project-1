@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   #devise_for :accounts
   devise_for :account
   
-  resources :comments
-  resources :posts
+  
+  resources :posts do 
+    resources :comments
+  end
   get 'my_posts', to: 'posts#my_posts', as: 'my_posts'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

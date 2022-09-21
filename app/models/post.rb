@@ -1,4 +1,4 @@
 class Post < ApplicationRecord
     has_many :comments, dependent: :destroy
-    belongs_to :account, optional: true
+    belongs_to :account
 end
