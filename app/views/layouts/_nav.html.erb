@@ -10,13 +10,13 @@
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Sign In</a>
+          <%= link_to "Sign Up", new_account_registration_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Sign Up</a>
+          <%= link_to "Sign In", new_account_session_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
+          <%= link_to "Posts", posts_path , class: "nav-link" %>
         </li>
       </ul>
     </div>
