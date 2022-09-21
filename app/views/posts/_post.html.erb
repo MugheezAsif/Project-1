@@ -2,6 +2,11 @@
 <div class="my-2">
   <div id="<%= dom_id post %>">
     <p>
+      <strong>Author:</strong>
+      <%= Account.find(post.account_id).name %>
+    </p>
+
+    <p>
       <strong>Title:</strong>
       <%= post.title %>
     </p>
