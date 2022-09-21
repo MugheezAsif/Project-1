@@ -6,10 +6,19 @@
   <%= render @post %>
 
   <div>
-    <%= link_to "Edit this post", edit_post_path(@post), class: "btn btn-outline-primary btn-sm mr-2" %> |
+    <% if account_signed_in? %>
+      <% if @post.account_id == current_account.id %>
+        <%= link_to "Edit this post", edit_post_path(@post), class: "btn btn-outline-primary btn-sm mr-2" %> |
+      <% end %>
+    <% end %>
+
     <%= link_to "Back to posts", posts_path, class: "btn btn-outline-primary btn-sm ml-2" %>
 
-    <%= button_to "Destroy this post", @post, method: :delete, class: "btn btn-outline-secondary btn-sm my-2" %>
+    <% if account_signed_in? %>
+      <% if @post.account_id == current_account.id %>
+        <%= button_to "Destroy this post", @post, method: :delete, class: "btn btn-outline-secondary btn-sm my-2" %>
+      <% end %>
+    <% end %>
   </div>
 
 </div>

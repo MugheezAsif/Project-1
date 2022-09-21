@@ -1,16 +1,17 @@
-
-
 <div class="container p-5">
-  <h1 class="text-center">Posts</h1>
+  <h1 class="text-center">My Posts</h1>
 
+  
   <div id="posts">
-    <% if @posts.count > 0 %>
+    <% if !@posts %>
       <% @posts.each do |post| %>
-        <%= render post %>
-        <p>
-          <%= link_to "Show this post", post, class: "btn btn-outline-primary btn-sm" %>
-        </p>
-        <hr>
+        <% if post.account_id == current_account.id %>
+            <%= render post %>
+            <p>
+            <%= link_to "Show this post", post, class: "btn btn-outline-primary btn-sm" %>
+            </p>
+            <hr>
+          <% end %>
       <% end %>
     <% else %>
       <p>No posts yet!</p>
