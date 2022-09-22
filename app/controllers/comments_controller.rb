@@ -1,7 +1,4 @@
 class CommentsController < ApplicationController
-  def new
-    @comment = Comment.new
-  end
 
   def create
     @post = Post.find(params[:post_id])
@@ -10,12 +7,11 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.find(params[:id])
     @comment.destroy
-
-    respond_to do |format|
-      format.html { redirect_to comments_url, notice: "Comment was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to post_path(@post)
+    
   end
 
   private

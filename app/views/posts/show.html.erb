@@ -21,24 +21,33 @@
     <% end %>
   </div>
   <hr>
-  <div class="my-2 w-25">
-    <h4>Add a Comment</h4> 
-    <%= form_with model: [ @post, @post.comments.build ] do |form| %>
-      <div class="my-2">
-        <%= form.text_field :author, value: current_account.name, type: :hidden  %>
+
+  <% if account_signed_in? %>
+    <% if @post.account_id == current_account.id %>
+      <p>You cannot do comment on your own posts</p>
+    <% else %>  
+      <div class="my-2 w-25">
+        <h4>Add a Comment</h4> 
+        <%= form_with model: [ @post, @post.comments.build ] do |form| %>
+          <div class="my-2">
+            <%= form.text_field :author, value: current_account.name, type: :hidden  %>
+          </div>
+          <div class="my-2">
+            <%= form.label :content, style: "display: block" %>
+            <%= form.text_field :content, class: "form-control" %>
+          </div>
+          <div class="my-2">
+            <%= form.text_field :post_id, value: @post.id, type: :hidden %>
+          </div>
+          <div class="my-2">
+            <%= form.submit "Submit", class: "btn btn-sm btn-outline-primary"%>
+          </div class="my-2">
+        <% end %>
       </div>
-      <div class="my-2">
-        <%= form.label :content, style: "display: block" %>
-        <%= form.text_field :content, class: "form-control" %>
-      </div>
-      <div class="my-2">
-        <%= form.text_field :post_id, value: @post.id, type: :hidden %>
-      </div>
-      <div class="my-2">
-        <%= form.submit "Submit", class: "btn btn-sm btn-outline-primary"%>
-      </div class="my-2">
     <% end %>
-  </div>
+  <% else %>
+    <p>Sign in to post comments</p>
+  <% end %>
 
 
   <div class="my-2">
@@ -50,8 +59,8 @@
           <%= render comment%>
           
           <% if account_signed_in? %>
-            <% if @post.account_id == current_account.id %>
-              <%= button_to "Delete your comment", post_comment_path(comment.post, comment), class: "btn btn-outline-secondary btn-sm my-2" %>
+            <% if comment.author == current_account.name %>
+              <%= button_to "Delete Comment", [comment.post, comment], method: :delete, class: "btn btn-outline-secondary btn-sm my-2" %>
             <% end %>
           <% end %>
           
