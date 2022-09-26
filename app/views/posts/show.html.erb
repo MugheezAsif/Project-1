@@ -53,19 +53,23 @@
   <div class="my-2">
     
     <h5><%= @post.comments.count %> Comments</h5>
-    <% if @post.comments.count > 0 %>
+    <% if @post.comments.count.positive? %>
       <div id="comments">
-        <% @post.comments.each do |comment| %>
+        <% @post.comments.each do |comment| %>   
+          <%next if comment.id.nil?%>
           <%= render comment%>
           
           <% if account_signed_in? %>
             <% if comment.author == current_account.name %>
+              
               <%= button_to "Delete Comment", [comment.post, comment], method: :delete, class: "btn btn-outline-secondary btn-sm my-2" %>
             <% end %>
           <% end %>
           
           <hr class="w-25">
+         
         <% end %>
+        
       </div>
     <% else %>
       <p>No comments on this post<p>
