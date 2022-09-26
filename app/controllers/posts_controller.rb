@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-
+  before_action :check_user, only: [ :edit , :destroy]
   # GET /posts or /posts.json
   def index
     @posts = Post.all
@@ -36,7 +36,6 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
-    byebug
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
@@ -65,13 +64,19 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-
-      byebug
       @post = Post.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :content, :account_id)
+    end
+
+    def check_user 
+      if @post.account_id == current_account.id
+        
+      else
+        redirect_to post_url(@post), notice: "Dont try to trick me you fool!" 
+      end 
     end
 end
