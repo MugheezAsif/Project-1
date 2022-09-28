@@ -20,7 +20,7 @@
           </li>
           <div class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link"><%= current_account.name%></a>
+              <%= link_to current_account.name, profile_index_path, class: "nav-link" %>
             </li>
           </div>  
         <% else %>
